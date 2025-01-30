@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
+import base64
+from typing import List, Union, Iterable, cast
 from typing_extensions import Literal
 
 import httpx
@@ -10,11 +11,9 @@ import httpx
 from .. import _legacy_response
 from ..types import embedding_create_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._utils import is_given, maybe_transform
 from .._compat import cached_property
+from .._extras import numpy as np, has_numpy
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import to_streamed_response_wrapper, async_to_streamed_response_wrapper
 from .._base_client import make_request_options
@@ -96,20 +95,42 @@ class Embeddings(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        params = {
+            "input": input,
+            "model": model,
+            "user": user,
+            "dimensions": dimensions,
+            "encoding_format": encoding_format,
+        }
+        if not is_given(encoding_format) and has_numpy():
+            params["encoding_format"] = "base64"
+
+        def parser(obj: CreateEmbeddingResponse) -> CreateEmbeddingResponse:
+            if is_given(encoding_format):
+                # don't modify the response object if a user explicitly asked for a format
+                return obj
+
+            for embedding in obj.data:
+                data = cast(object, embedding.embedding)
+                if not isinstance(data, str):
+                    # numpy is not installed / base64 optimisation isn't enabled for this model yet
+                    continue
+
+                embedding.embedding = np.frombuffer(  # type: ignore[no-untyped-call]
+                    base64.b64decode(data), dtype="float32"
+                ).tolist()
+
+            return obj
+
         return self._post(
             "/embeddings",
-            body=maybe_transform(
-                {
-                    "input": input,
-                    "model": model,
-                    "dimensions": dimensions,
-                    "encoding_format": encoding_format,
-                    "user": user,
-                },
-                embedding_create_params.EmbeddingCreateParams,
-            ),
+            body=maybe_transform(params, embedding_create_params.EmbeddingCreateParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                post_parser=parser,
             ),
             cast_to=CreateEmbeddingResponse,
         )
@@ -187,20 +208,42 @@ class AsyncEmbeddings(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        params = {
+            "input": input,
+            "model": model,
+            "user": user,
+            "dimensions": dimensions,
+            "encoding_format": encoding_format,
+        }
+        if not is_given(encoding_format) and has_numpy():
+            params["encoding_format"] = "base64"
+
+        def parser(obj: CreateEmbeddingResponse) -> CreateEmbeddingResponse:
+            if is_given(encoding_format):
+                # don't modify the response object if a user explicitly asked for a format
+                return obj
+
+            for embedding in obj.data:
+                data = cast(object, embedding.embedding)
+                if not isinstance(data, str):
+                    # numpy is not installed / base64 optimisation isn't enabled for this model yet
+                    continue
+
+                embedding.embedding = np.frombuffer(  # type: ignore[no-untyped-call]
+                    base64.b64decode(data), dtype="float32"
+                ).tolist()
+
+            return obj
+
         return await self._post(
             "/embeddings",
-            body=await async_maybe_transform(
-                {
-                    "input": input,
-                    "model": model,
-                    "dimensions": dimensions,
-                    "encoding_format": encoding_format,
-                    "user": user,
-                },
-                embedding_create_params.EmbeddingCreateParams,
-            ),
+            body=maybe_transform(params, embedding_create_params.EmbeddingCreateParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                post_parser=parser,
             ),
             cast_to=CreateEmbeddingResponse,
         )

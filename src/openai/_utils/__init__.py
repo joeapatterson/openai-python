@@ -1,3 +1,4 @@
+from ._logs import SensitiveHeadersFilter as SensitiveHeadersFilter
 from ._sync import asyncify as asyncify
 from ._proxy import LazyProxy as LazyProxy
 from ._utils import (
@@ -24,6 +25,7 @@ from ._utils import (
     coerce_integer as coerce_integer,
     file_from_path as file_from_path,
     parse_datetime as parse_datetime,
+    is_azure_client as is_azure_client,
     strip_not_given as strip_not_given,
     deepcopy_minimal as deepcopy_minimal,
     get_async_library as get_async_library,
@@ -31,6 +33,7 @@ from ._utils import (
     get_required_header as get_required_header,
     maybe_coerce_boolean as maybe_coerce_boolean,
     maybe_coerce_integer as maybe_coerce_integer,
+    is_async_azure_client as is_async_azure_client,
 )
 from ._typing import (
     is_list_type as is_list_type,

@@ -6,9 +6,18 @@ from .chat_completion import ChatCompletion as ChatCompletion
 from .chat_completion_role import ChatCompletionRole as ChatCompletionRole
 from .chat_completion_audio import ChatCompletionAudio as ChatCompletionAudio
 from .chat_completion_chunk import ChatCompletionChunk as ChatCompletionChunk
+from .parsed_chat_completion import (
+    ParsedChoice as ParsedChoice,
+    ParsedChatCompletion as ParsedChatCompletion,
+    ParsedChatCompletionMessage as ParsedChatCompletionMessage,
+)
 from .chat_completion_message import ChatCompletionMessage as ChatCompletionMessage
 from .chat_completion_modality import ChatCompletionModality as ChatCompletionModality
 from .completion_create_params import CompletionCreateParams as CompletionCreateParams
+from .parsed_function_tool_call import (
+    ParsedFunction as ParsedFunction,
+    ParsedFunctionToolCall as ParsedFunctionToolCall,
+)
 from .chat_completion_tool_param import ChatCompletionToolParam as ChatCompletionToolParam
 from .chat_completion_audio_param import ChatCompletionAudioParam as ChatCompletionAudioParam
 from .chat_completion_message_param import ChatCompletionMessageParam as ChatCompletionMessageParam

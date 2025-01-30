@@ -60,14 +60,14 @@ class TestFiles:
     @parametrize
     def test_method_retrieve(self, client: OpenAI) -> None:
         file = client.files.retrieve(
-            "file_id",
+            "string",
         )
         assert_matches_type(FileObject, file, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: OpenAI) -> None:
         response = client.files.with_raw_response.retrieve(
-            "file_id",
+            "string",
         )
 
         assert response.is_closed is True
@@ -78,7 +78,7 @@ class TestFiles:
     @parametrize
     def test_streaming_response_retrieve(self, client: OpenAI) -> None:
         with client.files.with_streaming_response.retrieve(
-            "file_id",
+            "string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -133,14 +133,14 @@ class TestFiles:
     @parametrize
     def test_method_delete(self, client: OpenAI) -> None:
         file = client.files.delete(
-            "file_id",
+            "string",
         )
         assert_matches_type(FileDeleted, file, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: OpenAI) -> None:
         response = client.files.with_raw_response.delete(
-            "file_id",
+            "string",
         )
 
         assert response.is_closed is True
@@ -151,7 +151,7 @@ class TestFiles:
     @parametrize
     def test_streaming_response_delete(self, client: OpenAI) -> None:
         with client.files.with_streaming_response.delete(
-            "file_id",
+            "string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -171,9 +171,9 @@ class TestFiles:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_content(self, client: OpenAI, respx_mock: MockRouter) -> None:
-        respx_mock.get("/files/file_id/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/files/string/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         file = client.files.content(
-            "file_id",
+            "string",
         )
         assert isinstance(file, _legacy_response.HttpxBinaryResponseContent)
         assert file.json() == {"foo": "bar"}
@@ -181,10 +181,10 @@ class TestFiles:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response_content(self, client: OpenAI, respx_mock: MockRouter) -> None:
-        respx_mock.get("/files/file_id/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/files/string/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = client.files.with_raw_response.content(
-            "file_id",
+            "string",
         )
 
         assert response.is_closed is True
@@ -195,9 +195,9 @@ class TestFiles:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_streaming_response_content(self, client: OpenAI, respx_mock: MockRouter) -> None:
-        respx_mock.get("/files/file_id/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/files/string/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         with client.files.with_streaming_response.content(
-            "file_id",
+            "string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -219,7 +219,7 @@ class TestFiles:
     def test_method_retrieve_content(self, client: OpenAI) -> None:
         with pytest.warns(DeprecationWarning):
             file = client.files.retrieve_content(
-                "file_id",
+                "string",
             )
 
         assert_matches_type(str, file, path=["response"])
@@ -228,7 +228,7 @@ class TestFiles:
     def test_raw_response_retrieve_content(self, client: OpenAI) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.files.with_raw_response.retrieve_content(
-                "file_id",
+                "string",
             )
 
         assert response.is_closed is True
@@ -240,7 +240,7 @@ class TestFiles:
     def test_streaming_response_retrieve_content(self, client: OpenAI) -> None:
         with pytest.warns(DeprecationWarning):
             with client.files.with_streaming_response.retrieve_content(
-                "file_id",
+                "string",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -299,14 +299,14 @@ class TestAsyncFiles:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
         file = await async_client.files.retrieve(
-            "file_id",
+            "string",
         )
         assert_matches_type(FileObject, file, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
         response = await async_client.files.with_raw_response.retrieve(
-            "file_id",
+            "string",
         )
 
         assert response.is_closed is True
@@ -317,7 +317,7 @@ class TestAsyncFiles:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
         async with async_client.files.with_streaming_response.retrieve(
-            "file_id",
+            "string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -372,14 +372,14 @@ class TestAsyncFiles:
     @parametrize
     async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
         file = await async_client.files.delete(
-            "file_id",
+            "string",
         )
         assert_matches_type(FileDeleted, file, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
         response = await async_client.files.with_raw_response.delete(
-            "file_id",
+            "string",
         )
 
         assert response.is_closed is True
@@ -390,7 +390,7 @@ class TestAsyncFiles:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
         async with async_client.files.with_streaming_response.delete(
-            "file_id",
+            "string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -410,9 +410,9 @@ class TestAsyncFiles:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_content(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
-        respx_mock.get("/files/file_id/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/files/string/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         file = await async_client.files.content(
-            "file_id",
+            "string",
         )
         assert isinstance(file, _legacy_response.HttpxBinaryResponseContent)
         assert file.json() == {"foo": "bar"}
@@ -420,10 +420,10 @@ class TestAsyncFiles:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response_content(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
-        respx_mock.get("/files/file_id/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/files/string/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = await async_client.files.with_raw_response.content(
-            "file_id",
+            "string",
         )
 
         assert response.is_closed is True
@@ -434,9 +434,9 @@ class TestAsyncFiles:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_streaming_response_content(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
-        respx_mock.get("/files/file_id/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/files/string/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         async with async_client.files.with_streaming_response.content(
-            "file_id",
+            "string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -458,7 +458,7 @@ class TestAsyncFiles:
     async def test_method_retrieve_content(self, async_client: AsyncOpenAI) -> None:
         with pytest.warns(DeprecationWarning):
             file = await async_client.files.retrieve_content(
-                "file_id",
+                "string",
             )
 
         assert_matches_type(str, file, path=["response"])
@@ -467,7 +467,7 @@ class TestAsyncFiles:
     async def test_raw_response_retrieve_content(self, async_client: AsyncOpenAI) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.files.with_raw_response.retrieve_content(
-                "file_id",
+                "string",
             )
 
         assert response.is_closed is True
@@ -479,7 +479,7 @@ class TestAsyncFiles:
     async def test_streaming_response_retrieve_content(self, async_client: AsyncOpenAI) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.files.with_streaming_response.retrieve_content(
-                "file_id",
+                "string",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"

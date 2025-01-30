@@ -30,8 +30,8 @@ class TestTranscriptions:
         transcription = client.audio.transcriptions.create(
             file=b"raw file contents",
             model="whisper-1",
-            language="language",
-            prompt="prompt",
+            language="string",
+            prompt="string",
             response_format="json",
             temperature=0,
             timestamp_granularities=["word"],
@@ -81,8 +81,8 @@ class TestAsyncTranscriptions:
         transcription = await async_client.audio.transcriptions.create(
             file=b"raw file contents",
             model="whisper-1",
-            language="language",
-            prompt="prompt",
+            language="string",
+            prompt="string",
             response_format="json",
             temperature=0,
             timestamp_granularities=["word"],

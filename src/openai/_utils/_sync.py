@@ -50,7 +50,6 @@ def asyncify(function: Callable[T_ParamSpec, T_Retval]) -> Callable[T_ParamSpec,
         # blocking code
         return result
 
-
     result = asyncify(blocking_function)(arg1, arg2, kwarg1=value1)
     ```
 
