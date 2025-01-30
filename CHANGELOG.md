@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.60.3 (2025-01-30)
+
+Full Changelog: [v1.60.2...v1.60.3](https://github.com/openai/openai-python/compare/v1.60.2...v1.60.3)
+
+### Chores
+
+* **helpers:** section links ([ef8d3cc](https://github.com/openai/openai-python/commit/ef8d3cce40022d3482d341455be604e5f1afbd70))
+
+
+### Documentation
+
+* **readme:** current section links ([#2055](https://github.com/openai/openai-python/issues/2055)) ([ef8d3cc](https://github.com/openai/openai-python/commit/ef8d3cce40022d3482d341455be604e5f1afbd70))
+
 ## 1.60.2 (2025-01-27)
 
 Full Changelog: [v1.60.1...v1.60.2](https://github.com/openai/openai-python/compare/v1.60.1...v1.60.2)
