@@ -1,0 +1,11 @@
+"SubscriptionId","SubscriptionName","Tags"
+"4d776e1e-6125-43da-9ed4-2fd575152482","Joes Subscription 1","null"
+"d8842c6a-9fd9-4d40-99bc-d34eaf7c6506","Project Blossom","null"
+"210ba07b-6fd1-4846-b872-040323d118b7","Joes Subscription 2","{
+  ""Owner"": ""joe"",
+  ""Environment"": ""Distinct"",
+  ""Company"": ""DXC""
+}"
+"52f0ed87-78dc-4782-a621-ee0a3af162d1","SUB-DH-DEV-TEST","{
+  ""DXCManagedServicesRelease"": ""release-v3.12""
+}"
